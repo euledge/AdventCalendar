@@ -5,7 +5,7 @@
 **ステータス**: POC完成 → Phase 1（本番運用準備）開始
 
 **関連ドキュメント**:
-- [コードレビュー報告書（2025/11/21）](./logs/code_review_20251121.md)
+- [コードレビュー報告書（2025/11/21）](./diary/code_review_20251121.md)
 - [Phase 1 実装計画](./tasks/phase1_implementation_plan.md)
 
 ---

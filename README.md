@@ -92,7 +92,7 @@ npm run preview
 
 - [仕様書](./docs/advent_calendar_poc_spec.md) - 機能仕様とアーキテクチャ
 - [ステアリングドキュメント](./docs/steering_document.md) - プロジェクト全体の進捗と計画
-- [コードレビュー報告書（2025/11/20）](./docs/logs/code_review_20251120.md) - 品質評価と改善事項
+- [コードレビュー報告書（2025/11/20）](./docs/diary/code_review_20251120.md) - 品質評価と改善事項
 - [Phase 1 実装計画](./docs/tasks/phase1_implementation_plan.md) - 本番運用準備のタスクリスト
 - [開発ログ（2025/11/20）](./docs/development_log_20251120.md) - 開発履歴
 
