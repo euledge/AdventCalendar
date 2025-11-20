@@ -1,73 +1,154 @@
-# React + TypeScript + Vite
+# Community Advent Calendar POC
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+コミュニティ専用のAdvent Calendarアプリケーション（POC版）
 
-Currently, two official plugins are available:
+## 📋 概要
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Qiita Advent Calendarのようなコミュニティ向けのアドベントカレンダーアプリケーションです。
+12月1日から25日まで、各日付に1つの記事を登録できます。
 
-## React Compiler
+## ✨ 機能
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🎄 12月1日〜25日のAdvent Calendar表示
+- 🔐 Google/GitHub認証
+- ✍️ 記事登録・閲覧機能
+- 🔗 外部記事へのリンク
+- 👥 ユーザープロフィール表示
+- 📝 コメント機能（オプション）
 
-## Expanding the ESLint configuration
+## 🚀 セットアップ
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 前提条件
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18以上
+- Firebase プロジェクト（無料プランで可）
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### インストール
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 環境変数の設定
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+`.env.example` を `.env.local` にコピーし、Firebase設定を記入してください。
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cp .env.example .env.local
 ```
+
+`.env.local` の内容:
+```env
+VITE_FIREBASE_API_KEY=your_api_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain_here
+VITE_FIREBASE_PROJECT_ID=your_project_id_here
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket_here
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id_here
+VITE_FIREBASE_APP_ID=your_app_id_here
+```
+
+### Firebase設定
+
+1. [Firebase Console](https://console.firebase.google.com/)でプロジェクトを作成
+2. Authentication → Sign-in methodで Google と GitHub を有効化
+3. Firestore Databaseを作成
+4. Firestore セキュリティルールを設定（`docs/tasks/phase1_implementation_plan.md` 参照）
+
+### 開発サーバーの起動
+
+```bash
+npm run dev
+```
+
+ブラウザで `http://localhost:5173` を開きます。
+
+### ビルド
+
+```bash
+npm run build
+```
+
+### プレビュー
+
+```bash
+npm run preview
+```
+
+## 🛠 技術スタック
+
+### フロントエンド
+- **React** 19.2.0 - UIフレームワーク
+- **TypeScript** 5.9.3 - 型安全性
+- **Vite** 7.2.4 - ビルドツール
+- **Tailwind CSS** 3.x - スタイリング
+- **shadcn/ui** - UIコンポーネント（Radix UIベース）
+
+### バックエンド・インフラ
+- **Firebase Authentication** - ユーザー認証
+- **Cloud Firestore** - NoSQLデータベース
+- **Firebase Hosting** - ホスティング（予定）
+
+## 📚 ドキュメント
+
+- [仕様書](./docs/advent_calendar_poc_spec.md) - 機能仕様とアーキテクチャ
+- [ステアリングドキュメント](./docs/steering_document.md) - プロジェクト全体の進捗と計画
+- [コードレビュー報告書（2025/11/20）](./docs/logs/code_review_20251120.md) - 品質評価と改善事項
+- [Phase 1 実装計画](./docs/tasks/phase1_implementation_plan.md) - 本番運用準備のタスクリスト
+- [開発ログ（2025/11/20）](./docs/development_log_20251120.md) - 開発履歴
+
+## 📝 開発
+
+### コミット規約
+
+AGENTS.mdの規約に従います:
+
+```
+<emoji> <type>: <subject>
+
+<body>
+```
+
+例:
+```
+✨ feat: カレンダーグリッドコンポーネントを実装
+
+12月1日から25日までの25個の日付を表示するグリッドを作成しました。
+各日付はクリック可能で、記事登録ダイアログを開きます。
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## 🚧 開発ステータス
+
+### 現在の状況
+- ✅ **POC完成**: 基本機能が動作確認済み
+- ✅ **技術検証完了**: Firebase + React の構成で問題なく動作
+- ✅ **コードレビュー完了**: 改善事項の特定完了（2025/11/21）
+- 🔄 **Phase 1 開始**: 本番運用準備タスクを実施中
+
+### 次のマイルストーン
+
+**Phase 1: 本番運用準備**（作業時間: 約9時間）
+- 🔴 Critical: 5タスク（約2時間）
+- 🟡 High: 4タスク（約3時間）
+- 🟢 Medium: 4タスク（約4時間）
+
+詳細は [Phase 1 実装計画](./docs/tasks/phase1_implementation_plan.md) を参照してください。
+
+## 📄 ライセンス
+
+MIT
+
+## 🤝 コントリビューション
+
+POC段階のため、現在はクローズドで開発中です。
+
+---
+
+**作成日**: 2025年11月20日  
+**最終更新**: 2025年11月21日
+
