@@ -1,6 +1,6 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { LogIn, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import {
     Dialog,
     DialogContent,
@@ -13,49 +13,66 @@ import {
 export function Header() {
     const { user, signInWithGoogle, signInWithGithub, signOut } = useAuth();
 
+    const handleSignOut = async () => {
+        try {
+            await signOut();
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
+    };
+
     return (
-        <header className="border-b">
-            <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold">🎄 Advent Calendar 2025</h1>
-                    <p className="text-sm text-muted-foreground">Community Edition</p>
+        <header className="bg-transparent pt-8 pb-4">
+            <div className="container mx-auto px-4 flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-2">
+                    <img src="/adventcalendar-logo.PNG" alt="Advent Calendar Logo" className="h-24 w-auto" />
+                    <h1 className="text-xl md:text-2xl font-bold text-[#BA3627] tracking-wider text-center">
+                        HAMAMATU IT COMMUNITIES ADVENT CALENDAR 2025
+                    </h1>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="absolute top-4 right-4 flex items-center gap-4">
                     {user ? (
-                        <>
-                            <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-2">
                                 {user.photoURL && (
                                     <img
                                         src={user.photoURL}
                                         alt={user.displayName || 'User'}
-                                        className="w-8 h-8 rounded-full"
+                                        className="w-8 h-8 rounded-full border border-[#BA3627]/20"
                                     />
                                 )}
-                                <span className="text-sm font-medium">{user.displayName}</span>
+                                <span className="text-sm font-medium hidden sm:inline-block text-[#BA3627]">
+                                    {user.displayName}
+                                </span>
                             </div>
-                            <Button onClick={signOut} variant="outline" size="sm">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={handleSignOut}
+                                className="border-[#BA3627] text-[#BA3627] hover:bg-[#BA3627] hover:text-white"
+                            >
                                 <LogOut className="w-4 h-4 mr-2" />
-                                Logout
+                                ログアウト
                             </Button>
-                        </>
+                        </div>
                     ) : (
                         <Dialog>
                             <DialogTrigger asChild>
-                                <Button>
-                                    <LogIn className="w-4 h-4 mr-2" />
-                                    Login
+                                <Button className="bg-[#BA3627] hover:bg-[#992D20] text-white">
+                                    ログイン
                                 </Button>
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Login to Advent Calendar</DialogTitle>
+                                    <DialogTitle>ログイン</DialogTitle>
                                     <DialogDescription>
-                                        Choose your preferred authentication method
+                                        記事を登録するにはログインが必要です。
+                                        お好きな方法でログインしてください。
                                     </DialogDescription>
                                 </DialogHeader>
-                                <div className="flex flex-col gap-3 mt-4">
-                                    <Button onClick={signInWithGoogle} className="w-full">
+                                <div className="flex flex-col gap-4 py-4">
+                                    <Button variant="outline" onClick={signInWithGoogle} className="w-full">
                                         <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                             <path
                                                 fill="currentColor"
@@ -74,16 +91,16 @@ export function Header() {
                                                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                                             />
                                         </svg>
-                                        Continue with Google
+                                        Googleでログイン
                                     </Button>
-                                    <Button onClick={signInWithGithub} variant="outline" className="w-full">
+                                    <Button variant="outline" onClick={signInWithGithub} className="w-full">
                                         <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                             <path
                                                 fill="currentColor"
                                                 d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"
                                             />
                                         </svg>
-                                        Continue with GitHub
+                                        GitHubでログイン
                                     </Button>
                                 </div>
                             </DialogContent>

@@ -12,8 +12,8 @@ interface CalendarDayProps {
 export function CalendarDay({ day, entry, onDayClick, isAuthenticated }: CalendarDayProps) {
     const today = new Date();
     const targetDate = new Date(2025, 11, day); // December is month 11
-    // Temporarily disable future date check for testing
-    const isFuture = false; // targetDate > today;
+    //const isFuture = targetDate > today;
+    const isFuture = false; // TODO: Remove this line for production
 
     const handleClick = () => {
         if (entry) {
@@ -28,47 +28,51 @@ export function CalendarDay({ day, entry, onDayClick, isAuthenticated }: Calenda
     return (
         <Card
             className={`
-        relative aspect-square p-4 flex flex-col items-center justify-center
-        transition-all duration-200
-        ${entry ? 'bg-primary/10 hover:bg-primary/20 cursor-pointer' : ''}
-        ${!entry && !isFuture && isAuthenticated ? 'hover:bg-accent cursor-pointer' : ''}
-        ${isFuture ? 'opacity-50 cursor-not-allowed' : ''}
+        relative aspect-square flex flex-col items-center justify-center
+        transition-all duration-200 border-0 shadow-md
+        ${entry ? 'bg-white/90 hover:bg-white' : 'bg-white hover:bg-gray-50'}
+        ${!entry && !isFuture && isAuthenticated ? 'cursor-pointer hover:scale-105' : ''}
+        ${isFuture ? 'opacity-80 cursor-not-allowed bg-gray-100' : ''}
+        ${entry ? 'cursor-pointer hover:scale-105' : ''}
       `}
             onClick={handleClick}
         >
-            <div className="absolute top-2 left-2 text-2xl font-bold text-muted-foreground">
-                {day}
-            </div>
+            {!entry && (
+                <div className={`text-2xl sm:text-3xl font-bold ${isFuture ? 'text-gray-400' : 'text-[#BA3627]'}`}>
+                    {day}
+                </div>
+            )}
 
             {isFuture && (
-                <Lock className="w-6 h-6 text-muted-foreground" />
+                <div className="absolute bottom-2 flex flex-col items-center">
+                    <Lock className="w-4 h-4 text-gray-400" />
+                </div>
             )}
 
             {entry && (
-                <div className="flex flex-col items-center gap-2 mt-6">
-                    {entry.userPhotoURL && (
-                        <img
-                            src={entry.userPhotoURL}
-                            alt={entry.userName}
-                            className="w-8 h-8 rounded-full"
-                        />
-                    )}
-                    <p className="text-xs text-center font-medium line-clamp-2">
-                        {entry.title}
-                    </p>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                <div className="absolute inset-0 p-2 flex flex-col items-center justify-center text-center">
+                    <div className="absolute top-1 left-2 text-sm font-bold text-[#BA3627]/50">
+                        {day}
+                    </div>
+
+                    <div className="flex-1 flex flex-col items-center justify-center w-full gap-1">
+                        {entry.userPhotoURL && (
+                            <img
+                                src={entry.userPhotoURL}
+                                alt={entry.userName}
+                                className="w-8 h-8 rounded-full border-2 border-[#BA3627]/20"
+                            />
+                        )}
+                        <p className="text-[10px] sm:text-xs font-medium line-clamp-2 w-full text-gray-700 leading-tight">
+                            {entry.title}
+                        </p>
+                    </div>
                 </div>
             )}
 
             {!entry && !isFuture && isAuthenticated && (
-                <div className="text-center mt-6">
-                    <p className="text-xs text-muted-foreground">Click to register</p>
-                </div>
-            )}
-
-            {!entry && !isFuture && !isAuthenticated && (
-                <div className="text-center mt-6">
-                    <p className="text-xs text-muted-foreground">Available</p>
+                <div className="absolute bottom-2 text-[10px] text-[#BA3627]/60 font-medium">
+                    登録可
                 </div>
             )}
         </Card>

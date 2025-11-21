@@ -70,21 +70,28 @@ export function CalendarGrid() {
         );
     }
 
+    const days = Array.from({ length: 25 }, (_, i) => i + 1);
+
     return (
-        <>
-            <div className="grid grid-cols-5 gap-4 p-6">
-                {Array.from({ length: 25 }, (_, i) => i + 1).map((day) => {
-                    const entry = entries.get(day);
-                    return (
+        <div className="relative max-w-3xl mx-auto mt-12 mb-12">
+            {/* Hanging hole decoration */}
+            <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-20 h-20 bg-[#BA3627] rounded-full flex items-center justify-center z-0">
+                <div className="w-6 h-6 bg-[#FDF6E3] rounded-full shadow-inner" style={{ backgroundColor: '#f6eedb' }} />
+            </div>
+
+            {/* Main board */}
+            <div className="relative bg-[#BA3627] p-6 sm:p-8 rounded-3xl shadow-xl z-10">
+                <div className="grid grid-cols-5 gap-3 sm:gap-4">
+                    {days.map((day) => (
                         <CalendarDay
                             key={day}
                             day={day}
-                            entry={entry}
+                            entry={entries.get(day)}
                             onDayClick={handleDayClick}
                             isAuthenticated={!!user}
                         />
-                    );
-                })}
+                    ))}
+                </div>
             </div>
 
             {selectedDay && (
@@ -96,6 +103,6 @@ export function CalendarGrid() {
                     onSuccess={handleEntryCreated}
                 />
             )}
-        </>
+        </div>
     );
 }

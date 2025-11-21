@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import type { User } from '@/types';
+import { toast } from 'sonner';
 
 interface AuthContextType {
     user: User | null;
@@ -55,13 +56,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const signInWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
+        try {
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
+        } catch (error: any) {
+            console.error('Google sign-in error:', error);
+            if (error.code === 'auth/popup-closed-by-user') {
+                toast.error('ログインがキャンセルされました');
+            } else if (error.code === 'auth/popup-blocked') {
+                toast.error('ポップアップがブロックされました。ブラウザの設定を確認してください');
+            } else {
+                toast.error('ログインに失敗しました。もう一度お試しください');
+            }
+        }
     };
 
     const signInWithGithub = async () => {
-        const provider = new GithubAuthProvider();
-        await signInWithPopup(auth, provider);
+        try {
+            const provider = new GithubAuthProvider();
+            await signInWithPopup(auth, provider);
+        } catch (error: any) {
+            console.error('GitHub sign-in error:', error);
+            if (error.code === 'auth/popup-closed-by-user') {
+                toast.error('ログインがキャンセルされました');
+            } else if (error.code === 'auth/account-exists-with-different-credential') {
+                toast.error('このメールアドレスは既に別の認証方法で登録されています');
+            } else {
+                toast.error('ログインに失敗しました。もう一度お試しください');
+            }
+        }
     };
 
     const signOut = async () => {
