@@ -7,6 +7,8 @@
 Qiita Advent Calendarのようなコミュニティ向けのアドベントカレンダーアプリケーションです。
 12月1日から25日まで、各日付に1つの記事を登録できます。
 
+![Advent Calendar App Screenshot](./public/app-screenshot.png)
+
 ## ✨ 機能
 
 - 🎄 12月1日〜25日のAdvent Calendar表示
