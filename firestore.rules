@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Entries collection rules
+    match /entries/{docId} {
+      // Allow anyone to read entries
+      allow read: if true;
+      
+      // Allow authenticated users to create entries only for valid dates
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.day >= 1
+        && request.resource.data.day <= 25
+        && request.resource.data.year == 2025  // Update this each year
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 200
+        && request.resource.data.url is string
+        && request.resource.data.url.matches('https?://.*')
+        && request.resource.data.url.size() <= 2000
+        && docId == string(request.resource.data.year) + '-' + string(request.resource.data.day);
+      
+      // Allow users to update only their own entries
+      allow update: if request.auth != null
+        && request.auth.uid == resource.data.userId
+        && request.resource.data.userId == resource.data.userId  // Prevent userId change
+        && request.resource.data.day == resource.data.day  // Prevent day change
+        && request.resource.data.year == resource.data.year;  // Prevent year change
+      
+      // Allow users to delete only their own entries
+      allow delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+    }
+  }
+}
