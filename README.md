@@ -74,6 +74,39 @@ npm run build
 npm run preview
 ```
 
+## 🧪 テスト環境
+
+### Firebase Emulator の起動
+
+ローカルでFirebaseサービスをエミュレートして、本番環境に影響を与えずにテストできます。
+
+```bash
+npm run emulators
+```
+
+起動後、以下のサービスが利用可能になります：
+
+- **Emulator UI**: http://127.0.0.1:4000/
+- **Authentication**: 127.0.0.1:9099
+- **Firestore**: 127.0.0.1:8080
+- **Hosting**: http://127.0.0.1:5000/
+
+### 開発サーバーとエミュレーターの併用
+
+1. ターミナル1でエミュレーターを起動:
+   ```bash
+   npm run emulators
+   ```
+
+2. ターミナル2で開発サーバーを起動:
+   ```bash
+   npm run dev
+   ```
+
+開発サーバーは自動的にエミュレーターに接続されます。
+
+詳細は [テスト環境ガイド](./docs/testing_environment.md) を参照してください。
+
 ## 🛠 技術スタック
 
 ### フロントエンド
@@ -94,6 +127,7 @@ npm run preview
 - [ステアリングドキュメント](./docs/steering_document.md) - プロジェクト全体の進捗と計画
 - [コードレビュー報告書（2025/11/20）](./docs/diary/code_review_20251121.md) - 品質評価と改善事項
 - [Phase 1 実装計画](./docs/tasks/phase1_implementation_plan.md) - 本番運用準備のタスクリスト
+- [テスト環境ガイド](./docs/testing_environment.md) - Firebase Emulator を使用したローカルテスト環境
 - [開発ログ（2025/11/20）](./docs/diary/development_log_20251120.md) - 開発履歴
 
 ## 📝 開発
@@ -150,5 +184,5 @@ POC段階のため、現在はクローズドで開発中です。
 ---
 
 **作成日**: 2025年11月20日  
-**最終更新**: 2025年11月21日
+**最終更新**: 2025年11月22日
 
