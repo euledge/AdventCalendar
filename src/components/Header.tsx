@@ -24,11 +24,23 @@ export function Header() {
     return (
         <header className="bg-transparent pt-8 pb-4">
             <div className="container mx-auto px-4 flex flex-col items-center gap-4">
-                <div className="flex flex-col items-center gap-2">
-                    <img src="/adventcalendar-logo.PNG" alt="Advent Calendar Logo" className="h-24 w-auto" />
-                    <h1 className="text-xl md:text-2xl font-bold text-[#BA3627] tracking-wider text-center">
-                        HAMAMATU IT COMMUNITIES ADVENT CALENDAR 2025
-                    </h1>
+                <div className="flex flex-row items-center gap-4 relative">
+                    <img
+                        src="/tree-mikan.png"
+                        alt="Tree and Mikan"
+                        className="h-24 w-auto object-contain -rotate-6 hidden sm:block"
+                    />
+                    <div className="flex flex-row items-center gap-2">
+                        <img src="/adventcalendar-logo.PNG" alt="Advent Calendar Logo" className="h-24 w-auto" />
+                        <h1 className="text-5xl md:text-7xl font-bold text-[#BA3627] tracking-wider text-center">
+                            2025
+                        </h1>
+                    </div>
+                    <img
+                        src="/gift-box.png"
+                        alt="Gift Box"
+                        className="h-20 w-auto object-contain rotate-12 hidden sm:block"
+                    />
                 </div>
 
                 <div className="absolute top-4 right-4 flex items-center gap-4">

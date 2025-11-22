@@ -52,3 +52,12 @@
 - `src/components/CalendarGrid.tsx`
 - `src/components/CalendarDay.tsx`
 - `src/components/EntryDialog.tsx`
+## 作業記録 2025-11-22
+
+- ヘッダーにクリスマスツリーとみかんのイラスト (`tree-mikan.png`) を追加し、左側に配置。
+- ヘッダー右側にプレゼントボックスイラスト (`gift-box.png`) を追加。
+- タイトルフォントサイズを `text-5xl` / `text-7xl` に拡大。
+- `vite.svg` とファビコン関連のリンクを削除し、不要ファイル `public/vite.svg` を削除。
+- `design.md` に新しいアセットとヘッダーのデザイン説明を追記。
+- `README.md` は現状維持（デザイン刷新の概要は既に反映）。
+- 変更されたファイル: `src/components/Header.tsx`, `src/index.css`, `src/components/CalendarDay.tsx`, `src/components/CalendarGrid.tsx`, `docs/design.md`, `docs/diary/development_log_20251122.md`。

@@ -76,7 +76,7 @@ export function CalendarGrid() {
         <div className="relative max-w-3xl mx-auto mt-12 mb-12">
             {/* Hanging hole decoration */}
             <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-20 h-20 bg-[#BA3627] rounded-full flex items-center justify-center z-0">
-                <div className="w-6 h-6 bg-[#FDF6E3] rounded-full shadow-inner" style={{ backgroundColor: '#f6eedb' }} />
+                <div className="w-6 h-6 bg-[#FDF6E3] rounded-full shadow-inner bg-background" />
             </div>
 
             {/* Main board */}

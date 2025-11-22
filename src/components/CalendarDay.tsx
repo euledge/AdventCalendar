@@ -28,9 +28,10 @@ export function CalendarDay({ day, entry, onDayClick, isAuthenticated }: Calenda
     return (
         <Card
             className={`
-        relative aspect-square flex flex-col items-center justify-center
+        group relative aspect-square flex flex-col items-center justify-center
         transition-all duration-200 border-0 shadow-md
-        ${entry ? 'bg-white/90 hover:bg-white' : 'bg-white hover:bg-gray-50'}
+        ${entry ? 'bg-white/90 hover:bg-white' : 'bg-background'}
+        ${!entry && !isFuture ? 'hover:bg-[hsl(148,49%,29%)]' : 'hover:bg-gray-50'}
         ${!entry && !isFuture && isAuthenticated ? 'cursor-pointer hover:scale-105' : ''}
         ${isFuture ? 'opacity-80 cursor-not-allowed bg-gray-100' : ''}
         ${entry ? 'cursor-pointer hover:scale-105' : ''}
@@ -38,7 +39,7 @@ export function CalendarDay({ day, entry, onDayClick, isAuthenticated }: Calenda
             onClick={handleClick}
         >
             {!entry && (
-                <div className={`text-2xl sm:text-3xl font-bold ${isFuture ? 'text-gray-400' : 'text-[#BA3627]'}`}>
+                <div className={`text-2xl sm:text-3xl font-bold ${isFuture ? 'text-gray-400' : 'text-[#BA3627] group-hover:text-white'}`}>
                     {day}
                 </div>
             )}
@@ -71,7 +72,7 @@ export function CalendarDay({ day, entry, onDayClick, isAuthenticated }: Calenda
             )}
 
             {!entry && !isFuture && isAuthenticated && (
-                <div className="absolute bottom-2 text-[10px] text-[#BA3627]/60 font-medium">
+                <div className="absolute bottom-2 text-[10px] text-[#BA3627]/60 font-medium group-hover:text-white">
                     登録可
                 </div>
             )}
